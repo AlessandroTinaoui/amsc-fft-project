@@ -8,7 +8,11 @@ target_include_directories(fourier_pricer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc
 
 include(CTest)
 if(BUILD_TESTING)
+    include(FetchContent)
+    FetchContent_Declare(googletest GIT_REPOSITORY https://github.com/google/googletest.git GIT_TAG 03597a01ee50ed33e9dfd640b249b4be3799d395)
+    FetchContent_MakeAvailable(googletest)
     add_executable(direct_transform_tests tests/DirectTransformTests.cpp)
-    target_link_libraries(direct_transform_tests PRIVATE fourier_pricer)
-    add_test(NAME direct_transform COMMAND direct_transform_tests)
+    target_link_libraries(direct_transform_tests PRIVATE fourier_pricer GTest::gtest_main)
+    include(GoogleTest)
+    gtest_discover_tests(direct_transform_tests)
 endif()
