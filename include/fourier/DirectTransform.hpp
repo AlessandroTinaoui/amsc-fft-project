@@ -7,7 +7,7 @@ namespace fourier {
 
 class DirectTransform {
 public:
-    ComplexVector compute(const ComplexVector& input, std::size_t output_size, Real theta) const;
+    ComplexVector compute(const ComplexVector& input, const std::vector<std::size_t>& input_shape, const std::vector<std::size_t>& output_shape, const std::vector<Real>& theta) const;
 };
 
 }
