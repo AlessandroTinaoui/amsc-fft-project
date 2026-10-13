@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 
 project(fourier_pricer LANGUAGES CXX)
 
-add_library(fourier_pricer src/fourier/DirectTransform.cpp)
+add_library(fourier_pricer src/fourier/DirectTransform.cpp src/fourier/FFT.cpp)
 target_compile_features(fourier_pricer PUBLIC cxx_std_20)
 target_include_directories(fourier_pricer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
@@ -15,4 +15,7 @@ if(BUILD_TESTING)
     target_link_libraries(direct_transform_tests PRIVATE fourier_pricer GTest::gtest_main)
     include(GoogleTest)
     gtest_discover_tests(direct_transform_tests)
+    add_executable(fft_tests tests/FFTTests.cpp)
+    target_link_libraries(fft_tests PRIVATE fourier_pricer GTest::gtest_main)
+    gtest_discover_tests(fft_tests)
 endif()
